@@ -7,7 +7,7 @@ const COLORS = {
 };
 const LABELS = {
   head:"Hoved, ansigt & øjne", cervical:"Columna cervicalis", thorax:"Thorax",
-  spine:"Columna thoracalis & lumbalis", shoulder:"Skulder & overarm",
+  spine:"Columna thoracolumbalis", shoulder:"Skulder & overarm",
   elbow:"Albue & underarm", wrist_hand:"Håndled, hånd & fingre", pelvis:"Bækken",
   hip_thigh:"Hofte & lår", knee:"Knæ", lower_leg:"Underben & achilles",
   ankle:"Ankel", foot:"Fod & tæer"
@@ -31,12 +31,12 @@ const ORDER = ["thorax","pelvis","hip_thigh","knee","lower_leg","ankle","foot","
 
 const DATA = {
   head:[
-    {n:"Hovedtraume",icd:"DS09.9",tx:"Indlæggelse ved GCS ≤14, fokal neurologi, bevidsthedstab, amnesi, opkastning, mistanke om penetrerende skade, eller alder <2 år. CT-skanning ved indikation. Rtg. columna cervicalis ved nakkesmerter.",fu:"Observation 2-4 timer. Udskrives ved GCS 15 og asymptomatisk."},
+    {n:"Hovedtrauma",icd:"DS09.9",tx:"Indlæggelse ved GCS ≤14, fokal neurologi, bevidsthedstab, amnesi, opkastning, mistanke om penetrerende skade, eller alder <2 år. CT-skanning ved indikation. Rtg. columna cervicalis ved nakkesmerter.",fu:"Observation 2-4 timer. Udskrives ved GCS 15 og asymptomatisk."},
     {n:"F. nasi",icd:"DS02.2",tx:"Rtg. kun ved mistanke om anden fraktur. Behandles ikke akut. Iskompres og smertestillende.",fu:"Kontrol ØNH 7-10 dage mhp. evt. reponering."},
-    {n:"Epistaxis",icd:"DR040",tx:"Kompression 10-15 min. Merocel-tampon med NaCl. AB under pakke (Phenoxymetylpenicillin). Bagre epistaxis: kontakt ØNH.",fu:"Fjernelse af pakke efter 2-3 dage."},
+    {n:"Epistaxis",tx:"Kompression 10-15 min. Merocel-tampon med NaCl. AB under pakke (Phenoxymetylpenicillin). Bagre epistaxis: kontakt ØNH.",fu:"Fjernelse af pakke efter 2-3 dage."},
     {n:"Øjenskader",tx:"Svejseøjne/abrasio cornea: bedøvende dråber + NSAID-dråber + mørke + kloramfenikol øjensalve. Syre/base ætsning: SKYL MINDST 1 TIME. Akut øjenlæge.",fu:"Akut øjenlæge ved ætsning eller gennemtrængende skade."},
     {n:"F. mandibulae / maxillae",icd:"DS02.6",tx:"Rtg. (OPG, Waters). Kæbekirurg vurdering. Behandles oftest operativt.",fu:"Kæbekirurg akut/subakut."},
-    {n:"Haematoma auris",icd:"DH61",tx:"Punktur og kompressionsbandasje. Undgå blodansamling mhp. brusk destruktion.",fu:"ØNH kontrol 24-48 timer."},
+    {n:"Haematoma auris",tx:"Punktur og kompressionsbandasje. Undgå blodansamling mhp. brusk destruktion.",fu:"ØNH kontrol 24-48 timer."},
   ],
   cervical:[
     {n:"Distorsio columnae cervicalis (piskesmæld)",icd:"DS13.4",tx:"Ingen immobilisering. Aktiv tidlig mobilisering. NSAID og paracetamol. Evt. kortvarig blød halskrave max 3-5 dage. Fysioterapi. Ingen rutinemæssig rtg.",fu:"EL ved vedvarende gener."},
@@ -67,7 +67,8 @@ const DATA = {
     {n:"Bursitis olecrani",icd:"DM70.2",tx:"NSAID + kompressionsbandage. Aspirer ved stor burs/diagnostisk tvivl (dyrkning!). AB ved infektiøs bursit.",fu:"EL kontrol."},
   ],
   wrist_hand:[
-    {n:"F. radii, extremitas distalis (Colles/Smith/Barton)",icd:"DS52.5",tx:"Reponér ved dorsalvinklet >10°, radial forkortning >3 mm, volar vinkel >5°, intraartikulær skridt >2 mm. Dorsal gipsskinne neutral/let palmær vinkel. Instabil/svær kominution: ort. kir. vurdering.",fu:"Rtg. + KK 7-10 dage."},
+    {n:"F. radii, extremitas distalis (Colles/Smith/Barton)",icd:"DS52.5",tx:"Reponér ved dorsalvinklet >10°, radial forkortning >3 mm, volar vinkel >5°, intraartikulær skridt >2 mm. Dorsal gipsskinne neutral/let palmær vinkel. Instabil/svær kominution: ort. kir. vurdering.",fu:"Rtg. + KK 7-10 dage.",
+      notes:"På OUH: Håndledsskinne eller dorsal gips i 3 uger som fjernes hos egen læge. Ingen kontrol.\nBBH: Colles (dorsal vinkling) — uacceptabel stilling: >10° dorsal vinkling, ulna-plus >2 mm, >2 mm ledspring. Reponering manuelt eller Kinastræk (max 15 min, 4-5 kg). Udisloceret: dorsal gips 4-5 uger. Disloceret acceptabel: dorsal gips 5 uger. Smith (volar vinkling): instabil → subakut amb mhp. OP. Barton/inv. Barton: subakut amb mhp. OP. Chauffeur-fraktur: ledspring >2 mm → indlæggelse til OP. Kontrol: rtg. i skadeamb 5-7, 10-14 dage og efter 5 uger."},
     {n:"F. os scaphoidei",icd:"DS62.0",tx:"Anatomical snuffbox ømhed → scaphoid gips UANSET normal rtg. Normal rtg.: MR 10-14 dage (gold standard). Proksimal pol/dislokation: ort. kir. konf. AKUT (avaskulær nekroserisiko).",fu:"MR + rtg. 10-14 dage. Gips til MR-svar."},
     {n:"F. os metacarpi I (Bennett/Rolando)",icd:"DS62.2",tx:"Bennett: reponering + scaphoid gips. Konf. ort. kir. mhp. K-tråd. Rolando (komminut): indlæggelse til osteosyntese.",fu:"Rtg. + KK 1 uge."},
     {n:"F. os metacarpi II-V",icd:"DS62.3",tx:"Check rotation (fingre peger mod scaphoid ved fleksion). Udisloceret: dorsalbandage/volarskine 3-4 uger. Disloceret/rotation/fler-knogle: ort. kir. vurdering.",fu:"Rtg. + KK 10-14 dage."},
@@ -211,6 +212,19 @@ function DxCard({ dx, color, open, onToggle }) {
               {dx.fu}
             </div>
           </div>
+          {dx.notes && (
+            <div style={{marginTop:10}}>
+              <div style={{fontSize:10,fontWeight:500,letterSpacing:"0.07em",color:"var(--color-text-tertiary)",textTransform:"uppercase",marginBottom:5}}>
+                Noter
+              </div>
+              <div style={{fontSize:13,lineHeight:1.7,color:"var(--color-text-secondary)"}}>
+                {dx.notes}
+              </div>
+            </div>
+          )}
+          {dx.img && (
+            <img src={dx.img} alt={dx.n} style={{marginTop:12,width:"100%",borderRadius:6,border:"0.5px solid var(--color-border-tertiary)"}} />
+          )}
         </div>
       )}
     </div>
@@ -247,20 +261,19 @@ export default function App() {
           </div>
         </div>
 
-        <div style={{minHeight:26,marginBottom:8,display:"flex",alignItems:"center",justifyContent:"center",width:"100%"}}>
-          {(hovLabel || label) && (
-            <div style={{
-              padding:"3px 10px", borderRadius:3,
-              fontSize:11, fontWeight:500,
-              background: (hovLabel && !sel) ? "var(--color-background-tertiary)" : color+"15",
-              border:`0.5px solid ${(hovLabel && !sel) ? "var(--color-border-tertiary)" : color+"40"}`,
-              color: (hovLabel && !sel) ? "var(--color-text-secondary)" : color,
-              maxWidth:"100%", textAlign:"center",
-              overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap",
-            }}>
-              {hovLabel || label}
-            </div>
-          )}
+        <div style={{height:26,marginBottom:8,display:"flex",alignItems:"center",justifyContent:"center",width:"100%"}}>
+          <div style={{
+            padding:"3px 10px", borderRadius:3,
+            fontSize:11, fontWeight:500,
+            background: (hovLabel && !sel) ? "var(--color-background-tertiary)" : color+"15",
+            border:`0.5px solid ${(hovLabel && !sel) ? "var(--color-border-tertiary)" : color+"40"}`,
+            color: (hovLabel && !sel) ? "var(--color-text-secondary)" : color,
+            maxWidth:"100%", textAlign:"center",
+            overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap",
+            opacity: (hovLabel || label) ? 1 : 0,
+          }}>
+            {hovLabel || label || "placeholder"}
+          </div>
         </div>
 
         <BodySVG sel={sel} hov={hov} onSel={handleSel} onHov={setHov} />
@@ -285,7 +298,7 @@ export default function App() {
                   fontFamily:"inherit",
                 }}
               >
-                {lbl.split(",")[0].split(" ").slice(0,2).join(" ")}
+                {lbl}
               </button>
             ))}
           </div>

@@ -1,0 +1,7 @@
+npm run dev
+
+For testing:
+http://localhost:5173
+
+For distribution:
+npm run deploy
