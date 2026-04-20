@@ -31,12 +31,15 @@ const ORDER = ["thorax","pelvis","hip_thigh","knee","lower_leg","ankle","foot","
 
 const DATA = {
   head:[
-    {n:"Hovedtrauma",icd:"DS09.9",tx:"Indlæggelse ved GCS ≤14, fokal neurologi, bevidsthedstab, amnesi, opkastning, mistanke om penetrerende skade, eller alder <2 år. CT-skanning ved indikation. Rtg. columna cervicalis ved nakkesmerter.",fu:"Observation 2-4 timer. Udskrives ved GCS 15 og asymptomatisk."},
+    {n:"Hovedtraume",icd:"DS09.9",tx:"Indlæggelse ved GCS ≤14, fokal neurologi, bevidsthedstab, amnesi, opkastning, mistanke om penetrerende skade, eller alder <2 år. CT-skanning ved indikation. Rtg. columna cervicalis ved nakkesmerter.",fu:"Observation 2-4 timer. Udskrives ved GCS 15 og asymptomatisk."},
     {n:"F. nasi",icd:"DS02.2",tx:"Rtg. kun ved mistanke om anden fraktur. Behandles ikke akut. Iskompres og smertestillende.",fu:"Kontrol ØNH 7-10 dage mhp. evt. reponering."},
     {n:"Epistaxis",tx:"Kompression 10-15 min. Merocel-tampon med NaCl. AB under pakke (Phenoxymetylpenicillin). Bagre epistaxis: kontakt ØNH.",fu:"Fjernelse af pakke efter 2-3 dage."},
     {n:"Øjenskader",tx:"Svejseøjne/abrasio cornea: bedøvende dråber + NSAID-dråber + mørke + kloramfenikol øjensalve. Syre/base ætsning: SKYL MINDST 1 TIME. Akut øjenlæge.",fu:"Akut øjenlæge ved ætsning eller gennemtrængende skade."},
     {n:"F. mandibulae / maxillae",icd:"DS02.6",tx:"Rtg. (OPG, Waters). Kæbekirurg vurdering. Behandles oftest operativt.",fu:"Kæbekirurg akut/subakut."},
-    {n:"Haematoma auris",tx:"Punktur og kompressionsbandasje. Undgå blodansamling mhp. brusk destruktion.",fu:"ØNH kontrol 24-48 timer."},
+    {n:"Haematoma auris",
+      icd:"DS00.4",
+      tx:"Punktur og kompressionsbandasje. Undgå blodansamling mhp. brusk destruktion.",
+      fu:"ØNH kontrol 24-48 timer."},
   ],
   cervical:[
     {n:"Distorsio columnae cervicalis (piskesmæld)",icd:"DS13.4",tx:"Ingen immobilisering. Aktiv tidlig mobilisering. NSAID og paracetamol. Evt. kortvarig blød halskrave max 3-5 dage. Fysioterapi. Ingen rutinemæssig rtg.",fu:"EL ved vedvarende gener."},
@@ -51,7 +54,10 @@ const DATA = {
     {n:"Akut diskusprolaps",icd:"DM51.1",tx:"Smertebehandling + aktiv mobilisering. MR ved neurologiske udfald. Cauda equina (blære/tarm-parese, sadelbedøvelse): akut MR + akut rygkir./neurolog.",fu:"EL. Henvisning ved manglende bedring 4-6 uger."},
   ],
   shoulder:[
-    {n:"F. claviculae",icd:"DS02.0",tx:"Midterste 2/3, udisloceret/moderat: slynge 3-6 uger + smertestillende. Meget disloceret, hudtrussel, åben, kar-/nerveskade: ort. kir. vurdering.",fu:"Rtg. + KK 6 uger."},
+    {n:"F. claviculae",
+      icd:"DS02.0",
+      tx:"Udisloceret: Løs mitella 3-6 uger + smertestillende. Må max bære op til en karton mælk \nDisloceret: OBS pneumothorax! Ellers samme som udisloceret.  \nSvær disloceret: ort. kir. vurdering.",
+      fu:"Disloceret: Rtg. + KK 3 uger i ort kir amb."},
     {n:"Lux. art. humeroscapularis",icd:"DS43.0",tx:"Reponering (Cunningham/Kocher/Milch). Rtg. FØR og EFTER. Slynge 3 uger. Primær luksation <30 år: idrætsamb. Recidivluksation <40 år med OP-ønske: idrætsamb.",fu:"Primær <30 år → idrætsamb. Øvrige → EL."},
     {n:"Lux. art. acromioclavicularis",icd:"DS43.1",tx:"Grad 1-2: slynge 2-3 uger + smertestillende. Grad 3 (komplet): slynge 3-6 uger, ort. kir. vurdering ved OP-ønske.",fu:"Ort. amb. ved manglende bedring."},
     {n:"F. extremitas prox. humeri",icd:"DS42.2",tx:"Udisloceret (<1 cm, <45°): mitella/slynge 3-4 uger + smertestillende. Disloceret/4-del-fraktur/ung: ort. kir. vurdering mhp. osteosyntese/alloplastik.",fu:"Rtg. + KK 1-2 uger."},
@@ -73,9 +79,10 @@ const DATA = {
     {n:"F. os metacarpi I (Bennett/Rolando)",icd:"DS62.2",tx:"Bennett: reponering + scaphoid gips. Konf. ort. kir. mhp. K-tråd. Rolando (komminut): indlæggelse til osteosyntese.",fu:"Rtg. + KK 1 uge."},
     {n:"F. os metacarpi II-V",icd:"DS62.3",tx:"Check rotation (fingre peger mod scaphoid ved fleksion). Udisloceret: dorsalbandage/volarskine 3-4 uger. Disloceret/rotation/fler-knogle: ort. kir. vurdering.",fu:"Rtg. + KK 10-14 dage."},
     {n:"Phalanxfrakturer (I-V)",icd:"DS62.5-6",tx:"Udisloceret: buddy-taping + stiv skinnebandage 3 uger. Disloceret/intraartikulær: reponering, evt. K-tråd.",fu:"KK 1-2 uger."},
-    {n:"Dropfinger (mallet finger)",icd:"DS63.1",tx:"Ekstensionsskinne DIP-led i max. ekstenation 6-8 uger dag og nat. INGEN fleksion! Avulsionsfraktur >30% ledfladen: ort. kir. vurdering.",fu:"KK + rtg. 6-8 uger."},
+    {n:"Dropfinger (mallet finger)",icd:"DS63.1",tx:"Ekstensionsskinne DIP-led i max. ekstenstion 6-8 uger dag og nat. INGEN fleksion! Avulsionsfraktur >30% ledfladen: ort. kir. vurdering.",fu:"KK + rtg. 6-8 uger."},
     {n:"Ruptur ulnart collateralt ligament (ski-thumb)",icd:"DS63.6",tx:"Stress-test ulnar side 1. MCP. Komplet ruptur/Stener-læsion: ort. kir. vurdering til operation. Inkomplet: scaphoid gips/skinne 4-6 uger.",fu:"Konf. ort. kir. ved komplet ruptur."},
     {n:"Volarpladelæsion / luxatio articuli digiti",tx:"Luxation: reponering evt. med blokade. Skinnebandage i neutral stilling 2-3 uger. Volarpladelæsion: skinne 3-4 uger.",fu:"KK 2-3 uger."},
+    {n:"Negle", tx:"under opbygning!"}
   ],
   pelvis:[
     {n:"F. ramus superior/inferior",icd:"DS32.1",tx:"Isoleret ramus hos ældre: smertestillende + mobilisering til smertegrænse. Indlæggelse ved svær immobilitet. Tromboseprofylakse.",fu:"EL 2-4 uger."},
@@ -200,7 +207,7 @@ function DxCard({ dx, color, open, onToggle }) {
             <div style={{fontSize:10,fontWeight:500,letterSpacing:"0.07em",color:"var(--color-text-tertiary)",textTransform:"uppercase",marginBottom:5}}>
               Behandling
             </div>
-            <div style={{fontSize:13,lineHeight:1.7,color:"var(--color-text-secondary)"}}>
+            <div style={{fontSize:13,lineHeight:1.7,color:"var(--color-text-secondary)", whiteSpace:"pre-line"}}>
               {dx.tx}
             </div>
           </div>
@@ -217,7 +224,7 @@ function DxCard({ dx, color, open, onToggle }) {
               <div style={{fontSize:10,fontWeight:500,letterSpacing:"0.07em",color:"var(--color-text-tertiary)",textTransform:"uppercase",marginBottom:5}}>
                 Noter
               </div>
-              <div style={{fontSize:13,lineHeight:1.7,color:"var(--color-text-secondary)"}}>
+              <div style={{fontSize:13,lineHeight:1.7,color:"var(--color-text-secondary)", whiteSpace:"pre-line"}}>
                 {dx.notes}
               </div>
             </div>
